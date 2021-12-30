@@ -52,7 +52,7 @@ describe('search', async function () {
         }
     });
 
-    // Our test definitons
+    // Our test definitions
     it('should search for "Selenium"', async function () {
         const content = await search('Selenium');
         assert.isTrue(content.includes('www.selenium.dev'));
