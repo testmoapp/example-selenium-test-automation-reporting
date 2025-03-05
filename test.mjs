@@ -6,7 +6,7 @@ describe('search', async function () {
     this.timeout(10000);
     let driver;
 
-    if (!fs.existsSync('./screenshots')){
+    if (!fs.existsSync('./screenshots')) {
         fs.mkdirSync('./screenshots');
     }
 
@@ -15,19 +15,18 @@ describe('search', async function () {
         // Automate DuckDuckGo search
         await driver.get('https://duckduckgo.com/');
         const searchBox = await driver.findElement(
-            By.id('search_form_input_homepage'));
+            By.id('searchbox_input'));
         await searchBox.sendKeys(term, Key.ENTER);
 
         // Wait until the result page is loaded
-        await driver.wait(until.elementLocated(By.id('links')));
+        await driver.wait(until.elementLocated(By.css('#more-results')));
 
         // Return page content
-        const body = await driver.findElement(By.tagName('body'));
-        return await body.getText();
+        return await driver.getPageSource();
     };
 
     // Before each test, initialize Selenium and launch Chrome
-    beforeEach(async function() {
+    beforeEach(async function () {
         const server = 'http://selenium:4444';
         driver = await new Builder()
             .usingServer(server)
